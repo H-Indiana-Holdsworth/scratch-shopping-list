@@ -25,25 +25,41 @@ test('ensures adding, deleting, editing, and display functionality', () => {
   // lines 27-38 test edit item functionality
 
   // user clicks edit button
-  // const editButton = screen.getByRole('button', { name: /edit/i });
-  // userEvent.click(editButton);
-  // save button and input with item's text renders
-  //    const list = screen.getByRole('list');
-  //    within(list).getByRole('textbox');
+  const editButton = screen.getByRole('button', { name: /edit cheese/i });
+  userEvent.click(editButton);
 
   // user types new name into input
+  const editedItemInput = screen.getByRole('textbox', { name: /edit cheese/i });
+  userEvent.type(editedItemInput, '{selectall}{del}Cheeses');
 
   // user clicks save button
+  const saveButton = screen.getByRole('button', { name: /save/i });
+  userEvent.click(saveButton);
 
   // new edited item renders in list
+  expect(screen.getByText(/cheeses/i)).toBeInTheDocument();
+});
 
+test('tests delete item functionality', () => {
+  render(<App />);
   // lines 40- 48 test delete item functionality
 
+  // looks for input and add button
+  const addInput = screen.getByRole('textbox');
+  const addButton = screen.getByRole('button', { name: /add/i });
+
+  // user types new item into input
+  const newItem = 'Cheeses';
+  userEvent.type(addInput, newItem);
+
+  // user clicks add button
+  userEvent.click(addButton);
+  const deletedItem = screen.getByText(/cheeses/i);
+
   // user clicks delete button
-  //   const deleteButton = screen.getByRole('button', { name: /delete/i });
-  //   userEvent.click(deleteButton);
+  const deleteButton = screen.getByRole('button', { name: /delete cheeses button/i });
+  userEvent.click(deleteButton);
 
   // list items display without deleted item
-  //   const deletedItem = screen.getByText(/cheese/i);
-  //   expect(deletedItem).
+  expect(deletedItem).not.toBeInTheDocument();
 });

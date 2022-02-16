@@ -10,6 +10,7 @@ export default function Item({ item, onEditItem, onDeleteItem }) {
         <input
           name="edit-input"
           value={item.text}
+          aria-label={`Edit ${item.text}`}
           onChange={(e) => {
             onEditItem({
               ...item,
@@ -24,7 +25,11 @@ export default function Item({ item, onEditItem, onDeleteItem }) {
     itemContent = (
       <>
         <p>{item.text}</p>
-        <button type="button" onClick={() => setIsEditing(true)}>
+        <button
+          type="button"
+          aria-label={`Edit ${item.text} button`}
+          onClick={() => setIsEditing(true)}
+        >
           Edit
         </button>
       </>
@@ -34,7 +39,9 @@ export default function Item({ item, onEditItem, onDeleteItem }) {
   return (
     <div>
       {itemContent}
-      <button onClick={() => onDeleteItem(item.id)}>Delete</button>
+      <button aria-label={`Delete ${item.text} button`} onClick={() => onDeleteItem(item.id)}>
+        Delete
+      </button>
     </div>
   );
 }
