@@ -8,6 +8,7 @@ export default function Item({ item, onEditItem, onDeleteItem }) {
     itemContent = (
       <>
         <input
+          name="edit-input"
           value={item.text}
           onChange={(e) => {
             onEditItem({
