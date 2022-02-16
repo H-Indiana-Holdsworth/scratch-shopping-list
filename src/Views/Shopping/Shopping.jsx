@@ -27,6 +27,16 @@ function itemsReducer(items, action) {
         },
       ];
     }
+
+    case 'edited': {
+      return items.map((item) => {
+        if (item.id === action.item.id) {
+          return action.item;
+        }
+        return item;
+      });
+    }
+
     default: {
       throw Error(`Unknown action: ${action.type}`);
     }
@@ -44,10 +54,17 @@ export default function Shopping() {
     });
   };
 
+  const handleEditItem = (item) => {
+    dispatch({
+      type: 'edited',
+      item,
+    });
+  };
+
   return (
     <div>
       <AddItem onAddItem={handleAddItem} />
-      <ItemList items={items} />
+      <ItemList items={items} onEditItem={handleEditItem} />
     </div>
   );
 }
