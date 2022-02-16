@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export default function Item({ item, onEditItem }) {
+export default function Item({ item, onEditItem, onDeleteItem }) {
   const [isEditing, setIsEditing] = useState(false);
 
   let itemContent;
@@ -30,5 +30,10 @@ export default function Item({ item, onEditItem }) {
     );
   }
 
-  return <div>{itemContent}</div>;
+  return (
+    <div>
+      {itemContent}
+      <button onClick={() => onDeleteItem(item.id)}>Delete</button>
+    </div>
+  );
 }

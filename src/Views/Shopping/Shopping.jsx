@@ -37,6 +37,10 @@ function itemsReducer(items, action) {
       });
     }
 
+    case 'deleted': {
+      return items.filter((item) => item.id !== action.id);
+    }
+
     default: {
       throw Error(`Unknown action: ${action.type}`);
     }
@@ -61,10 +65,17 @@ export default function Shopping() {
     });
   };
 
+  const handleDeleteItem = (itemId) => {
+    dispatch({
+      type: 'deleted',
+      id: itemId,
+    });
+  };
+
   return (
     <div>
       <AddItem onAddItem={handleAddItem} />
-      <ItemList items={items} onEditItem={handleEditItem} />
+      <ItemList items={items} onEditItem={handleEditItem} onDeleteItem={handleDeleteItem} />
     </div>
   );
 }
