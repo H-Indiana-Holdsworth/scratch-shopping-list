@@ -28,6 +28,10 @@ function itemsReducer(items, action) {
       return items.filter((item) => item.id !== action.id);
     }
 
+    case 'cleared': {
+      return [];
+    }
+
     default: {
       throw Error(`Unknown action: ${action.type}`);
     }
@@ -72,8 +76,16 @@ function ListProvider({ children }) {
     });
   };
 
+  const handleClearItems = () => {
+    dispatch({
+      type: 'cleared',
+    });
+  };
+
   return (
-    <ListContext.Provider value={{ items, handleAddItem, handleEditItem, handleDeleteItem }}>
+    <ListContext.Provider
+      value={{ items, handleAddItem, handleEditItem, handleDeleteItem, handleClearItems }}
+    >
       {children}
     </ListContext.Provider>
   );
