@@ -1,11 +1,18 @@
 import './App.css';
+import Header from './Components/Header/Header';
+import { ListProvider } from './contexts/ListContext';
 import Shopping from './Views/Shopping/Shopping';
 
 function App() {
   return (
-    <div className="App">
-      <Shopping />
-    </div>
+    <ListProvider>
+      <div className="App">
+        <header>
+          <Header />
+        </header>
+        <Shopping />
+      </div>
+    </ListProvider>
   );
 }
 
